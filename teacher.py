@@ -15,6 +15,20 @@ def createid():
         final += choice(chars)
     return final
 
+def createclass(userid):
+	conn = sqlconnect()
+	cursor = conn.cursor()
+
+	classid = createid()
+
+	classname = input("Enter class name: ")
+
+
+	cursor.execute(f"insert into class values ('{classid}', '{classname}');")
+	cursor.execute(f"insert into teachermembership values ('{classid}', '{userid}');")
+	
+	conn.commit()
+
 def manageclasses(userid):
 	conn = sqlconnect()
 	cursor = conn.cursor()
@@ -61,7 +75,7 @@ def viewsubmission(userid):
 	print(tabulate(l, ["Problem ID"], tablefmt="pretty"))
 	problemid = input("Enter Problem ID: ")
 
-	print("Your submissions:")
+	print("Submissions:")
 
 	cursor.execute(f"select submissionid, complete from submission where problemid= '{problemid}';")
 	l = cursor.fetchall()
@@ -77,18 +91,3 @@ def viewsubmission(userid):
 	print("Teacher's comments:")
 
 	print(l[0][1])
-
-def submitcode():
-	conn = sqlconnect()
-	cursor = conn.cursor()
-	
-	problemid = input("Enter Problem ID: ")
-
-	path = input("Enter code path: ")
-
-	code = open(path, "r").read()
-
-	subid = createid()
-
-	cursor.execute(f"insert into submission values ('{subid}', '{problemid}', '{code}', 0, '');")
-	conn.commit()

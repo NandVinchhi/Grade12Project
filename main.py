@@ -90,13 +90,14 @@ def teacherinterface():
 4. View Assignments
 5. View Problem
 6. View Submission
-7. Logout
-8. Quit:
-Enter choice (1-8): """))
+7. Create Assignment
+8. Logout
+9. Quit:
+Enter choice (1-9): """))
     if choice == 1:
-        teacher.createclass()
+        teacher.createclass(userid)
     elif choice == 2:
-        teacher.manageclasses()
+        teacher.manageclasses(userid)
     elif choice == 3:
         teacher.viewstudents()
     elif choice == 4:
@@ -106,11 +107,13 @@ Enter choice (1-8): """))
     elif choice == 6:
         teacher.viewsubmission()
     elif choice == 7:
+        teacher.createassignment()
+    elif choice == 8:
         loggedin = False
         interface = 0
         userid = ""
         print("Logging out...")
-    elif choice == 8:
+    elif choice == 9:
         print("Goodbye!")
         exit()
     else:
